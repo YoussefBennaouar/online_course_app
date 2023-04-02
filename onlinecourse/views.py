@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 # <HINT> Import any new Models here
-from .models import Course, Enrollment
+from .models import Course, Enrollment, Question, Choice, Submission
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
@@ -164,8 +164,10 @@ def show_exam_result(request, course_id, submission_id):
     return render(
         request,
         'onlinecourse/exam_result_bootstrap.html',
-        {"course":course, "choices":choices,"mark":mark, 
-            "total_mark": total_mark, 
+        {"course":course, "choices":choices,"mark":int((mark*100)/15), 
+            "total_mark": int((total_mark*100)/15), 
             "submission": submission,
             "grade": int((mark / total_mark) * 100) }
     )
+
+
